@@ -1,6 +1,6 @@
 # 🐳 Kubeflow_Study
 
-![image](https://github.com/user-attachments/assets/417e2bbf-7709-4b8b-a804-3c3b227917a8)
+![image](https://github.com/user-attachments/assets/5d03e3c4-8a17-4d0a-bf37-c11bb21aa3f1)
 
 # 📅 날짜별 기록<br>
 
