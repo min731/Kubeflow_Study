@@ -131,7 +131,8 @@ mig:
   strategy: single
 
 driver:
-  enabled: true
+  # enabled: true
+  enabled: false
   nvidiaDriverCRD:
     enabled: false
     deployDefaultCR: true
@@ -367,7 +368,8 @@ gfd:
   resources: {}
 
 migManager:
-  enabled: true
+  # enabled: true
+  enabled: false
   repository: nvcr.io/nvidia/cloud-native
   image: k8s-mig-manager
   version: v0.10.0-ubuntu20.04
@@ -472,7 +474,8 @@ vgpuManager:
         value: "false"
 
 vgpuDeviceManager:
-  enabled: true
+  # enabled: true
+  enabled: false
   repository: nvcr.io/nvidia/cloud-native
   image: vgpu-device-manager
   version: v0.2.8
@@ -484,7 +487,8 @@ vgpuDeviceManager:
     default: "default"
 
 vfioManager:
-  enabled: true
+  # enabled: true
+  enabled: false
   repository: nvcr.io/nvidia
   image: cuda
   version: 12.6.3-base-ubi9

@@ -11,3 +11,5 @@
 - 25-01-16 : Minikube 클러스터 생성, Istio 구축 및 예제 구현
 
 📒 참고 자료<br>
+
+- [GPU Operator](https://heumsi.github.io/blog/posts/setup-gpu-env-in-k8s/)
