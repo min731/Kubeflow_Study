@@ -18,6 +18,8 @@ k apply -f deployment.yaml
 # spec.schedulerName 필드가 추가
 k apply -f gpu-pod-with-binpack-scheduler-1.yaml
 k apply -f gpu-pod-with-binpack-scheduler-2.yaml
+# Minikube 클러스터의 단일 GPU 상황에서 미구현
+# 차후 실제 다중 GPU 환경에서 다시 시도
 ```
 
 ## References
