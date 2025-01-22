@@ -5,29 +5,56 @@ metadata:
   namespace: kube-system
 data:
   gpu-binpack-scheduler-config.yaml: |
-    apiVersion: kubescheduler.config.k8s.io/v1beta1
+    # apiVersion: kubescheduler.config.k8s.io/v1beta1
+    apiVersion: kubescheduler.config.k8s.io/v1    # v1beta1에서 v1으로 수정
     kind: KubeSchedulerConfiguration
     profiles:
     - schedulerName: gpu-binpack-scheduler
       plugins:
+        preFilter:
+          enabled:
+          - name: NodeResourcesFit
+        filter:
+          enabled:
+          - name: NodeResourcesFit
         score:
           enabled:
-          - name: RequestedToCapacityRatio
-      pluginConfig:
-      - name: RequestedToCapacityRatio
-        args: 
-          shape:
-          - utilization: 0
-            score: 0
-          - utilization: 100
-            score: 10
-          resources:
-          - name: nvidia.com/gpu
+          - name: NodeResourcesFit
             weight: 100
-          - name: cpu
-            weight: 1
-          - name: memory
-            weight: 1
+          disabled:
+          - name: "*"
+      pluginConfig:
+      - name: NodeResourcesFit
+        args:
+          scoringStrategy:
+            type: MostAllocated
+            resources:
+            - name: nvidia.com/gpu
+              weight: 100
+            - name: cpu
+              weight: 1
+            - name: memory
+              weight: 1
+    # - schedulerName: gpu-binpack-scheduler
+    #   plugins:
+    #     score:
+    #       enabled:
+    #       - name: RequestedToCapacityRatio
+    #   pluginConfig:
+    #   - name: RequestedToCapacityRatio
+    #     args: 
+    #       shape:
+    #       - utilization: 0
+    #         score: 0
+    #       - utilization: 100
+    #         score: 10
+    #       resources:
+    #       - name: nvidia.com/gpu
+    #         weight: 100
+    #       - name: cpu
+    #         weight: 1
+    #       - name: memory
+    #         weight: 1
     leaderElection:
       leaderElect: false
 # 최종 노드 점수 = (GPU_score * 100) + (CPU_score * 1) + (Memory_score * 1)

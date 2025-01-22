@@ -4,14 +4,25 @@ metadata:
   name: gpu-binpack-scheduler
   namespace: kube-system
 rules:
-- apiGroups:
-  - ""
-  resources:
-  - configmaps
-  verbs:
-  - get
-  - list
-  - watch
+- apiGroups: [""]
+  resources: ["endpoints"]
+  verbs: ["create"]
+- apiGroups: [""]
+  resources: ["endpoints"]
+  resourceNames: ["gpu-binpack-scheduler"]
+  verbs: ["get", "update"]
+- apiGroups: [""]
+  resources: ["nodes"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "list", "watch", "delete"]
+- apiGroups: [""]
+  resources: ["bindings", "events"]
+  verbs: ["create"]
+- apiGroups: [""]
+  resources: ["pods/binding"]
+  verbs: ["create"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -31,7 +42,6 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: gpu-binpack-scheduler-as-kube-scheduler
-  namespace: kube-system
 subjects:
 - kind: ServiceAccount
   name: gpu-binpack-scheduler
@@ -39,18 +49,4 @@ subjects:
 roleRef:
   kind: ClusterRole
   name: system:kube-scheduler
-  apiGroup: rbac.authorization.k8s.io
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: gpu-binpack-scheduler-as-volume-scheduler
-  namespace: kube-system
-subjects:
-- kind: ServiceAccount
-  name: gpu-binpack-scheduler
-  namespace: kube-system
-roleRef:
-  kind: ClusterRole
-  name: system:volume-scheduler
   apiGroup: rbac.authorization.k8s.io
