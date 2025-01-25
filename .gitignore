@@ -170,4 +170,6 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 
+#
 3.Install_Kubeflow/manifests
+4.Jupyter_Web_App/manifests

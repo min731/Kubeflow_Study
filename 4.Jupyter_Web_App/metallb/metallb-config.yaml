@@ -1,0 +1,13 @@
+   apiVersion: v1
+   kind: ConfigMap
+   metadata:
+     namespace: metallb-system
+     name: config
+   data:
+     config: |
+       address-pools:
+       - name: default
+         protocol: layer2
+         addresses:
+         #Host IP 대역에 맞추어 설정
+         - 192.168.49.2-192.168.49.10

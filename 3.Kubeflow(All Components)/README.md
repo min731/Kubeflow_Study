@@ -57,5 +57,3 @@ while ! kustomize build example | kubectl apply --server-side --force-conflicts 
 ```bash
 # Kubeflow 개별 컴포넌트 설치 후 각각 예제 구현 및 정리 예정
 ```
-
-### 3-2. Deploy JupterNotebook (구현중)
