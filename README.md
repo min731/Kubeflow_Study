@@ -21,3 +21,4 @@
 📒 참고 자료<br>
 
 - [GPU Operator](https://heumsi.github.io/blog/posts/setup-gpu-env-in-k8s/)
+- [Kubeflow Notebooks](https://www.kubeflow.org/docs/components/notebooks/)
