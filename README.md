@@ -15,7 +15,7 @@
   - Minikube Cluster 환경에서 Kubeflow 모든 컴포넌트 설치 시도(실패)  
   - 개발 컴포넌트 설치 예정  
 - 25-01-25: Kubeflow Jupyter Web App 환경 구축 및 접속 (Cert-Manager, Istio, Oauth2-Proxy, Dex, Metallb)  
-
+- 25-01-27: Kubeflow OIDC Flow 확인(Istio, Oauh2-Proxy, Dex), Trouble Shooting: kubelet 'Too Many Open Files'
 
 
 📒 참고 자료<br>
