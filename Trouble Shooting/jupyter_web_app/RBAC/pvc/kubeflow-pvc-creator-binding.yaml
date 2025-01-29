@@ -1,0 +1,13 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: notebook-pvc-creator
+  namespace: kubeflow-user
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: kubeflow-edit     # kubeflow-edit ClusterRole은 PVC 생성 권한을 포함
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: User
+  name: user@example.com
