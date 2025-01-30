@@ -53,14 +53,25 @@ kustomize build common/kubeflow-namespace/base | kubectl apply -f -
 ```bash
 k get ns --show-labels
 ```
+### 2-4. Create the Kubeflow ClusterRoles, kubeflow-view, kubeflow-edit and kubeflow-admin
 
-### 2-4. Kubeflow Istio Resources (*외부 접속 Gateway 생성)
+```bash
+kustomize build common/kubeflow-roles/base | kubectl apply -f -
+```
+
+### 2-5. Kubeflow Istio Resources (*외부 접속 Gateway 생성)
 
 ```bash
 kustomize build common/istio-1-24/kubeflow-istio-resources/base | kubectl apply -f -
 ```
 
-### 2.5 Oauth2-proxy, Dex (인증)
+### 2-6. Install the Admission Webhook for PodDefaults
+
+```bash
+kustomize build apps/admission-webhook/upstream/overlays/cert-manager | kubectl apply -f -
+```
+
+### 2.7 Oauth2-proxy, Dex (인증)
 
 ```bash
 # Oauth2-proxy
@@ -75,9 +86,9 @@ kustomize build common/dex/overlays/oauth2-proxy | kubectl apply -f -
 kubectl wait --for=condition=ready pods --all --timeout=180s -n auth
 ```
 
-### 2-6. Network Policies는 생략 (개발 환경) 
+### 2-8. Network Policies는 생략 (개발 환경) 
 
-### 2-7. Install the Notebook Controller
+### 2-9. Install the Notebook Controller
 
 ```bash
 kustomize build apps/jupyter/notebook-controller/upstream/overlays/kubeflow | kubectl apply -f -
@@ -87,7 +98,7 @@ kustomize build apps/jupyter/notebook-controller/upstream/overlays/kubeflow | ku
 k get all -n kubeflow
 ```
 
-### 2-8. Install the Jupyter Web App
+### 2-10. Install the Jupyter Web App
 
 ```bash
 kustomize build apps/jupyter/jupyter-web-app/upstream/overlays/istio | kubectl apply -f -
@@ -95,6 +106,13 @@ kustomize build apps/jupyter/jupyter-web-app/upstream/overlays/istio | kubectl a
 
 ```bash
 k get all -n kubeflow
+```
+
+### 2-11. Install the Profile Controller and the Kubeflow Access-Management (KFAM) 
+
+```bash
+# Kubeflow 상에서 RBAC 구현을 위한 요소 설치
+kustomize build apps/profiles/upstream/overlays/kubeflow | kubectl apply -f -
 ```
 
 ### Metallb (외부 IP 할당)

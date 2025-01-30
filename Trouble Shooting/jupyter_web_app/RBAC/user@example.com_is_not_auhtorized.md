@@ -188,7 +188,6 @@ subjects:
 
 ## 확인
 
-
 ## 참고
 
 [Kubeflow Profiles and Namespaces](https://www.kubeflow.org/docs/components/central-dash/profiles/)
