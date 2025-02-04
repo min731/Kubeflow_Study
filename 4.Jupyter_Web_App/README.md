@@ -254,3 +254,64 @@ http://192.168.49.3/jupyter/
 ![alt text](image-3.png)
 ![alt text](image-5.png)
 ![alt text](image-6.png)
+
+## Issue
+
+### *Jupyter Web App Standalone 구축으로 인한 리소스 부족
+
+```bash
+# JWA 배포 시 구축되는 cert-manager, oauth2-proxy, auth 등으로 인해
+# 리소스가 부족
+$ k get pods -A
+NAMESPACE        NAME                                                          READY   STATUS      RESTARTS         AGE
+auth             dex-59d8bf7594-6kbc7                                          1/1     Running     23 (10m ago)     10d
+cert-manager     cert-manager-5c887c889d-f9d6n                                 1/1     Running     14 (5d2h ago)    10d
+cert-manager     cert-manager-cainjector-58f6855565-sgbvg                      1/1     Running     26 (10m ago)     10d
+cert-manager     cert-manager-webhook-6647d6545d-79mp6                         1/1     Running     13 (5d2h ago)    10d
+gpu-operator     gpu-feature-discovery-9bwdm                                   1/1     Running     16 (5d2h ago)    13d
+gpu-operator     gpu-feature-discovery-ddjxp                                   1/1     Running     16 (5d2h ago)    13d
+gpu-operator     gpu-operator-55566cdcc9-8fd8s                                 1/1     Running     10 (10m ago)     8d
+gpu-operator     gpu-operator-node-feature-discovery-gc-7f546fd4bc-54pb7       1/1     Running     16 (5d2h ago)    13d
+gpu-operator     gpu-operator-node-feature-discovery-master-8448c8896c-89sdj   1/1     Running     24 (5d2h ago)    13d
+gpu-operator     gpu-operator-node-feature-discovery-worker-sntpd              1/1     Running     60 (9m53s ago)   13d
+gpu-operator     gpu-operator-node-feature-discovery-worker-spsqd              1/1     Running     39 (10m ago)     13d
+gpu-operator     nvidia-container-toolkit-daemonset-fk66k                      1/1     Running     16 (5d2h ago)    13d
+gpu-operator     nvidia-container-toolkit-daemonset-tgqh2                      1/1     Running     16 (5d2h ago)    13d
+gpu-operator     nvidia-cuda-validator-854lz                                   0/1     Completed   0                10m
+gpu-operator     nvidia-cuda-validator-d69fn                                   0/1     Completed   0                10m
+gpu-operator     nvidia-dcgm-exporter-p2w4w                                    1/1     Running     16 (5d2h ago)    13d
+gpu-operator     nvidia-dcgm-exporter-s6r5z                                    1/1     Running     16 (5d2h ago)    13d
+gpu-operator     nvidia-device-plugin-daemonset-g58dc                          1/1     Running     44 (5d2h ago)    13d
+gpu-operator     nvidia-device-plugin-daemonset-x4w54                          1/1     Running     20 (5d2h ago)    13d
+gpu-operator     nvidia-operator-validator-h5r9r                               1/1     Running     16 (5d2h ago)    13d
+gpu-operator     nvidia-operator-validator-kkjcn                               1/1     Running     9 (5d2h ago)     13d
+ingress-nginx    ingress-nginx-admission-create-p5vz9                          0/1     Completed   3                18d
+ingress-nginx    ingress-nginx-admission-patch-9xlcf                           0/1     Completed   4                18d
+ingress-nginx    ingress-nginx-controller-bc57996ff-9fflt                      1/1     Running     21 (5d2h ago)    18d
+istio-system     istio-ingressgateway-59cf98b795-k8wqp                         1/1     Running     12 (5d2h ago)    10d
+istio-system     istiod-5bd6cfd777-rjxnf                                       1/1     Running     12 (5d2h ago)    10d
+kube-system      coredns-6f6b679f8f-xz596                                      1/1     Running     20 (5d2h ago)    18d
+kube-system      etcd-mlops                                                    1/1     Running     17 (5d2h ago)    18d
+kube-system      kindnet-2crnz                                                 1/1     Running     17 (5d2h ago)    18d
+kube-system      kindnet-th7zd                                                 1/1     Running     17 (5d2h ago)    18d
+kube-system      kube-apiserver-mlops                                          1/1     Running     18 (5d2h ago)    18d
+kube-system      kube-controller-manager-mlops                                 1/1     Running     20 (5d2h ago)    18d
+kube-system      kube-proxy-wvjhj                                              1/1     Running     4 (5d2h ago)     8d
+kube-system      kube-proxy-xr26t                                              1/1     Running     4 (5d2h ago)     8d
+kube-system      kube-scheduler-mlops                                          1/1     Running     17 (5d2h ago)    18d
+kube-system      metrics-server-84c5f94fbc-jvhn7                               1/1     Running     43 (10m ago)     18d
+kube-system      nvidia-device-plugin-daemonset-68fx8                          1/1     Running     40 (5d2h ago)    13d
+kube-system      nvidia-device-plugin-daemonset-njtqc                          1/1     Running     16 (5d2h ago)    13d
+kube-system      storage-provisioner                                           1/1     Running     41 (10m ago)     18d
+kubeflow         admission-webhook-deployment-5477666b46-56jzf                 1/1     Running     1 (5d2h ago)     5d2h
+kubeflow         jupyter-web-app-deployment-65ddcd55f8-vrghs                   2/2     Running     2 (5d2h ago)     5d2h
+kubeflow         notebook-controller-deployment-7b7db8c8f6-b6nw5               2/2     Running     5 (10m ago)      5d2h
+kubeflow         profiles-deployment-56f8fcf867-69dxf                          3/3     Running     7 (10m ago)      5d2h
+metallb-system   controller-8479c96bd9-sb4nw                                   1/1     Running     12 (5d2h ago)    10d
+metallb-system   speaker-f87dz                                                 1/1     Running     12 (5d2h ago)    10d
+oauth2-proxy     oauth2-proxy-7bbf4fdbbd-lsrpf                                 1/1     Running     13 (5d2h ago)    10d
+oauth2-proxy     oauth2-proxy-7bbf4fdbbd-r474c                                 1/1     Running     13 (5d2h ago)    10d
+```
+![alt text](image-7.png)
+
+* 이로 인해 Jupyter Server 생성 및 예제 구현은 생략합니다.
