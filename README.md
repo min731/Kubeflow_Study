@@ -17,6 +17,8 @@
 - 25-01-25: Kubeflow Jupyter Web App 환경 구축 및 접속 (Cert-Manager, Istio, Oauth2-Proxy, Dex, Metallb)  
 - 25-01-27: Kubeflow OIDC Flow 확인(Istio, Oauh2-Proxy, Dex), Trouble Shooting: kubelet 'Too Many Open Files'
 - 25-01-29: Kubeflow CRD RBAC (Profile, Rolebinding) 확인, CSRF-TOKEN 미인증 설정
+- 25-01-30: Kubeflow ClusterRole, Admission Webhook, Profile Controller/Access-Management 배포
+- 25-02-03: Jupyter Web App 예제 구현 리소스 부족 확인 및 플랫폼 삭제, 캐시 초기화
 
 📒 참고 자료<br>
 
